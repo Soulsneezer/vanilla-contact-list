@@ -1,0 +1,185 @@
+body {
+  background-color: rgb(235, 235, 235);
+}
+.outerDiv {
+  width: 500px;
+  height: 800px;
+  margin: 150px auto;
+  display: flex;           /* establish flex container */
+  flex-direction: column;  /* make main axis vertical */
+  align-items: center;
+}
+.input {
+  display: block;
+  height: 35px;
+  width: 300px;
+  font-size: 20px;
+  padding-left: 10px;
+  border-radius: 10px;
+  border: solid 1px rgb(46, 46, 46);
+  margin: 2px 0;
+}
+.button {
+  border-radius: 10px;
+  border: solid 1px rgb(46, 46, 46);
+  padding: 1px;
+}
+.input-phone, .input-mail {
+  display: inline-block;
+  vertical-align: middle;
+}
+.remove-phone-button, .remove-mail-button {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  margin: auto 10px;
+  background-color: rgb(255, 217, 217);
+}
+.add-phone-button, .add-mail-button {
+  display: block;
+  width: 235px;
+  height: 35px;
+  margin: 4px 0 2px 0;
+  background-color: rgb(185, 255, 195);
+  font-size: 16px;
+  text-align: left;
+  padding-left: 10px;
+}
+.add-contact-button {
+  width: 200px;
+  height: 35px;
+  font-size: 20px;
+}
+.create-contact {
+  margin-left: 10px;
+}
+.contact-list {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 800px;
+  display: inline-block;
+  text-align: center;
+}
+.contact-card {
+  border: solid 1px rgb(255, 255, 255);
+  width: 350px;
+  height: 300px;
+  margin: 10px;
+  border-radius: 20px;
+  background-color: rgb(189, 189, 189);
+  text-align: left;
+  cursor: pointer;
+  padding-bottom: 20px;
+  position: relative;
+}
+.contact-card:hover {
+  border: solid 1px rgb(0, 0, 0);
+  cursor: pointer;
+}
+.remove-button {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: rgb(255, 166, 0);
+  display: none;
+  right: 10px;
+  top: 10px;
+  border-radius: 50%;
+  font-size: 20px;
+}
+.contact-card:hover .remove-button {
+  display: inline-block;
+  cursor: pointer;
+}
+.contact-logo {
+  margin: 10px auto 0 auto;
+  width: 100px;
+  height: 100px;
+  border: solid 1px rgb(255, 255, 255);
+  border-radius: 50%;
+}
+.contact-name {
+  margin: 10px auto 0 auto;
+  text-align: center;
+  font-size: 26px;
+  height: 32px;
+}
+
+.contact-phone-div, .contact-mail-div {
+  padding-left: 10%;
+  font-size: 18px;
+  margin: 18px 0 0 0;
+  height: 45px;
+}
+.contact-left-section {
+  display: inline-block;
+  vertical-align: top;
+}
+.contact-right-section {
+  display: inline-block;
+  padding-left: 5px;
+  position: relative;
+  height: 45px;
+  width: 150px;
+}
+.last1::after {
+  content  : "";
+  position : absolute;
+  z-index  : 1;
+  bottom   : 0;
+  left     : 0;
+  pointer-events   : none;
+  background-image : linear-gradient(to bottom, 
+                    rgba(255,255,255, 0), 
+                    rgba(189, 189, 189, 1) 70%);
+  width    : 100%;
+  height   : 14px;
+}
+.contact-left-phone-section, .contact-left-mail-section {
+  display: inline-block;
+  width: 48%;
+  border: solid 1px yellow;
+  text-align: right;
+}
+.p-contact-left-phone-section {
+  margin: 0;
+}
+.contact-right-phone-section, .contact-right-mail-section {
+  display: inline-block;
+  width: 48%;
+  border: solid 1px rgb(255, 187, 0);
+  text-align: left;
+  padding-left: 5px;
+}
+.p-contact-right-phone-section, .p-contact-right-mail-section {
+  margin: 0;
+}
+.p-contact-left-mail-section {
+  margin: 0;
+}
+
+
+@media screen and (max-width: 1050px){
+  body {
+    width: 90%;
+  }
+  .outerDiv {
+    width: 90%;
+  }
+  .contact-list {
+    width: 90%;
+  }
+  .contact-card {
+    width: 90%;
+  }
+  .create-contact {
+    width: 80%;
+  }
+  .input {
+    width: 80%;
+  }
+  .remove-button {
+    display: inline-block;
+  }
+}
+
