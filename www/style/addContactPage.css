@@ -1,12 +1,13 @@
 body {
   background-color: rgb(235, 235, 235);
+  width: 100%;
 }
 .outerDiv {
   width: 500px;
   height: 800px;
   margin: 150px auto;
-  display: flex;           /* establish flex container */
-  flex-direction: column;  /* make main axis vertical */
+  display: flex;    
+  flex-direction: column;  
   align-items: center;
 }
 .input {
@@ -159,27 +160,14 @@ body {
 }
 
 
-@media screen and (max-width: 1050px){
-  body {
-    width: 90%;
-  }
+@media screen and (max-width: 750px){
   .outerDiv {
-    width: 90%;
+    margin: auto;
+    width: 400px;
   }
   .contact-list {
-    width: 90%;
+    width: 400px;
   }
-  .contact-card {
-    width: 90%;
-  }
-  .create-contact {
-    width: 80%;
-  }
-  .input {
-    width: 80%;
-  }
-  .remove-button {
-    display: inline-block;
-  }
+  
 }
 
