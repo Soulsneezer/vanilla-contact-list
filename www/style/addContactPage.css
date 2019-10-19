@@ -159,8 +159,16 @@ body {
   margin: 0;
 }
 
+@media screen and (max-width: 1025px){
+  .remove-button {
+    display: inline-block;
+  }
+}
 
 @media screen and (max-width: 750px){
+  body {
+    margin-left: 0;
+  }
   .outerDiv {
     margin: auto;
     width: 400px;
@@ -168,6 +176,5 @@ body {
   .contact-list {
     width: 400px;
   }
-  
 }
 
