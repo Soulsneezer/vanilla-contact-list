@@ -1,7 +1,8 @@
-class EditContactsPage{
+class EditContactsPage extends Component{
   constructor(addContactsPage) {
+    super();
     this.addContactsPage = addContactsPage;
-    this.wrapsUpAllEventListeners();
+    this.eventListener2();
     this.editInputData = {};
     this.nbr = 0;
   }
@@ -10,144 +11,6 @@ class EditContactsPage{
     let response = await fetch('/api/contacts/' + location.pathname.slice(1));
     this.data = await response.json()
     return this.data;
-  }
-
-  wrapsUpAllEventListeners() {
-    window.addEventListener('click', async e => {
-      this.data = await this.getContact();
-  
-      if(e.target.closest('.remove-phone-button2')) {
-        e.preventDefault();
-        if(this.editInputData.phoneNumbers) {
-          if(this.editInputData.phoneNumbers.length === 1 ) { return }
-          let idIndex = this.editInputData.phoneNumbers.findIndex(obj => obj.id == e.target.id);
-          this.editInputData.phoneNumbers.splice(idIndex, 1);
-          this.renderEditContact(this.editInputData);
-        }
-      }
-    
-      if(e.target.closest('.remove-mail-button2')) {
-        e.preventDefault();
-        if(this.editInputData.mails) {
-          if(this.editInputData.mails.length === 1 ) { return }
-          let idIndex = this.editInputData.mails.findIndex(obj => obj.id == e.target.id);
-          this.editInputData.mails.splice(idIndex, 1);
-          this.renderEditContact(this.editInputData);
-        }
-      }
-    
-      if(e.target.closest('.add-phone-button2')) {
-        e.preventDefault();
-        if(this.editInputData.phoneNumbers) {
-          if(this.editInputData.phoneNumbers.length === 4) { return }
-          this.editInputData.phoneNumbers.push({
-            id: this.nbr,
-            phoneNumber: ''
-          });
-          this.nbr++;
-          this.renderEditContact(this.editInputData);
-        }
-      }
-    
-      if(e.target.closest('.add-mail-button2')) {
-        e.preventDefault();
-        if(this.editInputData.mails) {
-          if(this.editInputData.mails.length === 4) { return }
-          this.editInputData.mails.push({
-            id: this.nbr,
-            mail: ''
-          });
-          this.nbr++;
-          this.renderEditContact(this.editInputData);
-        }
-      }
-    
-      if(e.target.closest('.remove-button2')) {
-        e.preventDefault();
-        let phoneArr = [];
-        let phoneNbrs = this.data.history[e.target.id].phoneNumbers
-        for(let nbr = 0; nbr < phoneNbrs.length; nbr++) {
-          let obj = {};
-          obj.id = nbr,
-          obj.phoneNumber = phoneNbrs[nbr]
-          phoneArr.push(obj)
-        }
-        let mailArr = [];
-        let mails = this.data.history[e.target.id].mails
-        for(let mail = 0; mail < mails.length; mail++) {
-          let obj = {};
-          obj.id = mail,
-          obj.mail = mails[mail]
-          mailArr.push(obj)
-        }
-        this.editInputData.name = this.data.history[e.target.id].name
-        this.editInputData.phoneNumbers = phoneArr;
-        this.editInputData.mails = mailArr;
-    
-        this.renderEditContact(this.editInputData);
-      }
-      
-      if(e.target.closest('.edit-contact-button2')){
-        e.preventDefault();
-        this.collectPhoneNbrs2();
-        this.collectMails2();
-    
-        if(this.editInputData.name === '') {this.editInputData.name = 'Ananymous'}
-        let date = JSON.stringify(new Date())
-        date = date.slice(0,11) + ' ' + date.slice(11,20);
-        let contactData = {
-          name: this.editInputData.name,
-          phoneNumbers: [],
-          mails: [],
-          _id: location.pathname.slice(1),
-          history: []
-        }
-        let removedHistory = Object.assign(contactData);
-        delete removedHistory.history;
-        removedHistory = {...removedHistory}
-        removedHistory.date = date;
-        contactData.history = [removedHistory, ...this.data.history];
-        this.data.history.push(removedHistory)
-    
-        this.editInputData.phoneNumbers.forEach(obj => contactData.phoneNumbers.push(obj.phoneNumber));
-        this.editInputData.mails.forEach(obj => contactData.mails.push(obj.mail));
-    
-        const response = await fetch('/api/contacts/update', {
-          method: 'PUT', 
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(contactData) 
-        });
-        this.cleanInputFields2();
-        this.renderEditContact(this.editInputData);
-      }
-    })
-    
-    window.addEventListener('change', async e => {
-    
-      if(e.target.closest('.input-name2')){
-        this.editInputData.name = document.querySelector('.input-name2').value;
-      }
-      if(e.target.closest('.input-phone2')){
-        this.collectPhoneNbrs2();
-      }
-      if(e.target.closest('.input-mail2')){
-        this.collectMails2();
-      }
-    })
-    
-    window.addEventListener('click', async e => {
-      if(e.target.closest('.input-name2')){
-        this.editInputData.name = document.querySelector('.input-name2').value;
-      }
-      if(e.target.closest('.input-phone2')){
-        this.collectPhoneNbrs2();
-      }
-      if(e.target.closest('.input-mail2')){
-        this.collectMails2();
-      }
-    })
   }
 
   collectPhoneNbrs2() {
@@ -233,24 +96,24 @@ class EditContactsPage{
   }
 
   createPhoneNbrInput2(nbr, createContactDiv, phoneNbr) { 
-    let inputPhoneDiv = this.addContactsPage.createElement(createContactDiv, 'div', '', 'class', 'phone-div2')
+    let inputPhoneDiv = this.createElement(createContactDiv, 'div', '', 'class', 'phone-div2')
     inputPhoneDiv.setAttribute('id', nbr);
-      let inputPhone = this.addContactsPage.createElement(inputPhoneDiv, 'input', '', 'class', 'input input-phone2');
+      let inputPhone = this.createElement(inputPhoneDiv, 'input', '', 'class', 'input input-phone2');
       inputPhone.setAttribute('type','text');
       inputPhone.value = phoneNbr;
       inputPhone.placeholder = 'Fyll i ditt telefonnummer här...';
-      let removePhoneButton = this.addContactsPage.createElement(inputPhoneDiv, 'button', '-', 'class', 'button remove-phone-button2');
+      let removePhoneButton = this.createElement(inputPhoneDiv, 'button', '-', 'class', 'button remove-phone-button2');
       removePhoneButton.setAttribute('id', nbr);
   }
   
   createMailInput2(nbr, createContactDiv, mail) { 
-    let inputMailDiv = this.addContactsPage.createElement(createContactDiv, 'div', '', 'class', 'mail-div2')
+    let inputMailDiv = this.createElement(createContactDiv, 'div', '', 'class', 'mail-div2')
     inputMailDiv.setAttribute('id', nbr);
-      let inputMail = this.addContactsPage.createElement(inputMailDiv, 'input', '', 'class', 'input input-mail2');
+      let inputMail = this.createElement(inputMailDiv, 'input', '', 'class', 'input input-mail2');
       inputMail.setAttribute('type','text');
       inputMail.value = mail;
       inputMail.placeholder = 'Fyll i din mail här...';
-      let removeMailButton = this.addContactsPage.createElement(inputMailDiv, 'button', '-', 'class', 'button remove-mail-button2');
+      let removeMailButton = this.createElement(inputMailDiv, 'button', '-', 'class', 'button remove-mail-button2');
       removeMailButton.setAttribute('id', nbr);
   }
 
@@ -262,26 +125,26 @@ class EditContactsPage{
   }
 
   exportContactList2(contactListDiv2, name, phoneNumbers, mails, date, idNbr) {
-    let contactCard = this.addContactsPage.createElement(contactListDiv2, 'button', '', 'class', 'contact-card2');
-    let removeButton = this.addContactsPage.createElement(contactCard, 'button', 'Redigera', 'class', 'remove-button2');
+    let contactCard = this.createElement(contactListDiv2, 'button', '', 'class', 'contact-card2');
+    let removeButton = this.createElement(contactCard, 'button', 'Redigera', 'class', 'remove-button2');
     removeButton.setAttribute('id', idNbr)
-    let contactLogo = this.addContactsPage.createElement(contactCard, 'div', '', 'class', 'contact-logo2');
-    let contactName = this.addContactsPage.createElement(contactCard, 'p', name, 'class', 'contact-name2');
-    let contactDate = this.addContactsPage.createElement(contactCard, 'p', 'Senast redigerad: ' + date, 'class', 'p-date');
+    let contactLogo = this.createElement(contactCard, 'div', '', 'class', 'contact-logo2');
+    let contactName = this.createElement(contactCard, 'p', name, 'class', 'contact-name2');
+    let contactDate = this.createElement(contactCard, 'p', 'Senast redigerad: ' + date, 'class', 'p-date');
     
-      let phoneDiv = this.addContactsPage.createElement(contactCard, 'p', '', 'class', 'contact-phone-div2');
-        let contactLeftPhoneSection = this.addContactsPage.createElement(phoneDiv, 'div', '', 'class', 'contact-left-section2'); 
-          let contactPLeftPhoneSection = this.addContactsPage.createElement(contactLeftPhoneSection, 'p', 'Telefonnummer:', 'class', 'p-contact-left-phone-section2');
-        let contactRightPhoneSection = this.addContactsPage.createElement(phoneDiv, 'div', '', 'class', 'contact-right-section2'); 
+      let phoneDiv = this.createElement(contactCard, 'p', '', 'class', 'contact-phone-div2');
+        let contactLeftPhoneSection = this.createElement(phoneDiv, 'div', '', 'class', 'contact-left-section2'); 
+          let contactPLeftPhoneSection = this.createElement(contactLeftPhoneSection, 'p', 'Telefonnummer:', 'class', 'p-contact-left-phone-section2');
+        let contactRightPhoneSection = this.createElement(phoneDiv, 'div', '', 'class', 'contact-right-section2'); 
           phoneNumbers.slice(0,6).map((phoneNbr, i) => 
-            this.addContactsPage.createElement(contactRightPhoneSection, 'p', phoneNbr, 'class', `p-contact-right-phone-section last${i}2`)
+            this.createElement(contactRightPhoneSection, 'p', phoneNbr, 'class', `p-contact-right-phone-section last${i}2`)
           )
-      let mailDiv = this.addContactsPage.createElement(contactCard, 'p', '', 'class', 'contact-mail-div2');
-        let contactLeftMailSection = this.addContactsPage.createElement(mailDiv, 'div', '', 'class', 'contact-left-section2'); 
-          let contactPLeftMailSection = this.addContactsPage.createElement(contactLeftMailSection, 'p', 'Mail:', 'class', 'p-contact-left-mail-section2');
-        let contactRightMailSection = this.addContactsPage.createElement(mailDiv, 'div', '', 'class', 'contact-right-section2');
+      let mailDiv = this.createElement(contactCard, 'p', '', 'class', 'contact-mail-div2');
+        let contactLeftMailSection = this.createElement(mailDiv, 'div', '', 'class', 'contact-left-section2'); 
+          let contactPLeftMailSection = this.createElement(contactLeftMailSection, 'p', 'Mail:', 'class', 'p-contact-left-mail-section2');
+        let contactRightMailSection = this.createElement(mailDiv, 'div', '', 'class', 'contact-right-section2');
           mails.slice(0,6).map((mail, i) => 
-            this.addContactsPage.createElement(contactRightMailSection, 'p', mail, 'class', `p-contact-right-mail-section last${i}2`)
+            this.createElement(contactRightMailSection, 'p', mail, 'class', `p-contact-right-mail-section last${i}2`)
           )
   }
 
@@ -290,12 +153,12 @@ class EditContactsPage{
   
     document.body.innerHTML = '';
     let body = document.querySelector('body');
-    let outerDiv2 = this.addContactsPage.createElement(body, 'div', '', 'class', 'outerDiv2');
-      let createContactDiv2 = this.addContactsPage.createElement(outerDiv2, 'div', '', 'class', 'create-contact2');
-        let h2 = this.addContactsPage.createElement(createContactDiv2, 'h2', 'Redigera dina kontaktuppgifter:', 'class', 'h2');
+    let outerDiv2 = this.createElement(body, 'div', '', 'class', 'outerDiv2');
+      let createContactDiv2 = this.createElement(outerDiv2, 'div', '', 'class', 'create-contact2');
+        let h2 = this.createElement(createContactDiv2, 'h2', 'Redigera dina kontaktuppgifter:', 'class', 'h2');
   
   
-        let inputName = this.addContactsPage.createElement(createContactDiv2, 'input', '', 'class', 'input input-name2');
+        let inputName = this.createElement(createContactDiv2, 'input', '', 'class', 'input input-name2');
           inputName.setAttribute('type','text');
           inputName.value = this.editInputData.name;
           inputName.placeholder = 'Fyll i ditt namn här...';
@@ -306,11 +169,11 @@ class EditContactsPage{
         this.editInputData.mails.map((obj) => 
           this.createMailInput2(obj.id, createContactDiv2, obj.mail)
         )
-        let addPhoneButton = this.addContactsPage.createElement(createContactDiv2, 'button', 'Lägg till fler telefonnummer', 'class', 'button add-phone-button2');
-        let addMailButton = this.addContactsPage.createElement(createContactDiv2, 'button', 'Lägg till fler mail-adresser', 'class', 'button add-mail-button2');
-        let addContactButton = this.addContactsPage.createElement(createContactDiv2, 'button', 'Spara ändringar', 'class', 'button edit-contact-button2');
+        let addPhoneButton = this.createElement(createContactDiv2, 'button', 'Lägg till fler telefonnummer', 'class', 'button add-phone-button2');
+        let addMailButton = this.createElement(createContactDiv2, 'button', 'Lägg till fler mail-adresser', 'class', 'button add-mail-button2');
+        let addContactButton = this.createElement(createContactDiv2, 'button', 'Spara ändringar', 'class', 'button edit-contact-button2');
   
-      let contactListDiv2 = this.addContactsPage.createElement(outerDiv2, 'div', '', 'class', 'contact-list2');
+      let contactListDiv2 = this.createElement(outerDiv2, 'div', '', 'class', 'contact-list2');
         this.createContactList2(contactListDiv2);
   
   }

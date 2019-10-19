@@ -1,6 +1,7 @@
-class AddContactsPage{
+class AddContactsPage extends Component{
 
   constructor() {
+    super();
     this.inputData = {
       name: '',
       phoneNumbers: [{
@@ -14,22 +15,13 @@ class AddContactsPage{
     }
     this.nbr = 2;
     this.getContactList();
-    this.wrapsUpAllEventListeners2();
-    this.render();
+    this.eventListener();
   }
   
   async getContactList() {
     let response = await fetch('/api/contacts');
     let data = await response.json()
     return data;
-  }
-  
-  createElement(daddyElement, element, innerHTMLString, attribute, attributeName) {
-    element = document.createElement(element);
-    element.innerHTML = innerHTMLString ? innerHTMLString : '';
-    element.setAttribute(attribute, attributeName);
-    daddyElement.append(element);
-    return element
   }
   
   createPhoneNbrInput(nbr, createContactDiv, phoneNbr) { 
@@ -53,94 +45,6 @@ class AddContactsPage{
       let removeMailButton = this.createElement(inputMailDiv, 'button', '-', 'class', 'button remove-mail-button');
       removeMailButton.setAttribute('id', nbr);
   }
-
-  wrapsUpAllEventListeners2() {
-    window.addEventListener('change', async e => {
-      if(e.target.closest('.input-name')){
-        this.inputData.name = document.querySelector('.input-name').value;
-      }
-      if(e.target.closest('.input-phone')){
-        this.collectPhoneNbrs();
-      }
-      if(e.target.closest('.input-mail')){
-        this.collectMails();
-      }
-    })
-  
-    window.addEventListener('click', async e => {
-
-      if(e.target.closest('.remove-phone-button')) {
-        e.preventDefault();
-        let idIndex = this.inputData.phoneNumbers.findIndex(obj => obj.id == e.target.id);
-        if(this.inputData.phoneNumbers.length === 1 ) { return }
-        this.inputData.phoneNumbers.splice(idIndex, 1);
-        this.render();
-      }
-    
-      if(e.target.closest('.remove-mail-button')) {
-        e.preventDefault();
-        let idIndex = this.inputData.mails.findIndex(obj => obj.id == e.target.id);
-        if(this.inputData.mails.length === 1 ) { return }
-        this.inputData.mails.splice(idIndex, 1);
-        this.render();
-      }
-    
-      if(e.target.closest('.add-phone-button')) {
-        e.preventDefault();
-        if(this.inputData.phoneNumbers.length === 4) { return }
-        this.inputData.phoneNumbers.push({
-          id: this.nbr,
-          phoneNumber: ''
-        });
-        this.nbr++;
-        this.render();
-      }
-    
-      if(e.target.closest('.add-mail-button')) {
-        e.preventDefault();
-        if(this.inputData.mails.length === 4) { return }
-        this.inputData.mails.push({
-          id: this.nbr,
-          mail: ''
-        });
-        this.nbr++;
-        this.render();
-      }
-      
-      if(e.target.closest('.add-contact-button')){
-        e.preventDefault();
-        this.collectPhoneNbrs();
-        this.collectMails();
-        if(this.inputData.name === '') {this.inputData.name = 'Ananymous'}
-        let contactData = {
-          name: this.inputData.name,
-          phoneNumbers: [],
-          mails: []
-        }
-        this.inputData.phoneNumbers.forEach(obj => contactData.phoneNumbers.push(obj.phoneNumber));
-        this.inputData.mails.forEach(obj => contactData.mails.push(obj.mail));
-        const response = await fetch('/api/contacts/add', {
-          method: 'POST', 
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(contactData)
-        });
-        this.cleanInputFields();
-        this.render();
-        // return await response.json();
-      }
-    
-    })
-  
-    document.addEventListener('mouseover', e => {
-      if(e.target.closest('.contact-card')){
-        let contactCard = e.target.closest('.contact-card');
-        
-      }
-    })
-  }
-
   
   collectPhoneNbrs() {
     let selectedPhoneNbrs = document.querySelectorAll('.input-phone');

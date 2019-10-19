@@ -3,12 +3,15 @@ body {
   width: 100%;
 }
 .outerDiv {
-  width: 500px;
-  height: 800px;
-  margin: 150px auto;
+  width: 80%;
+  margin: 100px auto;
   display: flex;    
   flex-direction: column;  
   align-items: center;
+  border-radius: 10px;
+  border: solid 2px rgb(11, 18, 80);
+  background-image: url("../imgs/hey-hay.jpg");
+  background-size: 100%;
 }
 .input {
   display: block;
@@ -42,6 +45,7 @@ body {
   height: 35px;
   margin: 4px 0 2px 0;
   background-color: rgb(185, 255, 195);
+  color: rgb(2, 21, 48);
   font-size: 16px;
   text-align: left;
   padding-left: 10px;
@@ -50,6 +54,8 @@ body {
   width: 200px;
   height: 35px;
   font-size: 20px;
+  background-color: rgb(16, 38, 66);
+  color: rgb(221, 234, 252);
 }
 .create-contact {
   margin-left: 10px;
@@ -62,16 +68,17 @@ body {
   text-align: center;
 }
 .contact-card {
-  border: solid 1px rgb(255, 255, 255);
+  border: solid 2px rgb(167, 216, 248);
   width: 350px;
   height: 300px;
   margin: 10px;
   border-radius: 20px;
-  background-color: rgb(189, 189, 189);
+  background-image: url("../imgs/blue-brick.jpg");
   text-align: left;
   cursor: pointer;
   padding-bottom: 20px;
   position: relative;
+  color: rgb(221, 234, 252);
 }
 .contact-card:hover {
   border: solid 1px rgb(0, 0, 0);
@@ -124,17 +131,16 @@ body {
   width: 150px;
 }
 .last1::after {
-  content  : "";
+  content  : " .  .  .";
   position : absolute;
   z-index  : 1;
   bottom   : 0;
   left     : 0;
   pointer-events   : none;
-  background-image : linear-gradient(to bottom, 
-                    rgba(255,255,255, 0), 
-                    rgba(189, 189, 189, 1) 70%);
   width    : 100%;
   height   : 14px;
+  color: rgb(255, 255, 255);
+  padding-left: 5px;
 }
 .contact-left-phone-section, .contact-left-mail-section {
   display: inline-block;

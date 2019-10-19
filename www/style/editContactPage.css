@@ -1,10 +1,13 @@
 .outerDiv2 {
-  width: 500px;
-  height: 800px;
-  margin: 150px auto;
-  display: flex;   
-  flex-direction: column; 
+  width: 80%;
+  margin: 100px auto;
+  display: flex;    
+  flex-direction: column;  
   align-items: center;
+  border-radius: 10px;
+  border: solid 2px rgb(11, 18, 80);
+  background-image: url("../imgs/hey-hay.jpg");
+  background-size: 100%;
 }
 .input2 {
   display: block;
@@ -61,12 +64,12 @@ button {
   text-align: center;
 }
 .contact-card2 {
-  border: solid 1px rgb(255, 255, 255);
+  border: solid 1px rgb(16, 38, 66);
   width: 350px;
   height: 450px;
   margin: 10px;
   border-radius: 20px;
-  background-color: rgb(189, 189, 189);
+  background-image: linear-gradient(rgb(238, 236, 236),rgb(192, 188, 188));
   text-align: left;
   padding-bottom: 20px;
   position: relative;
