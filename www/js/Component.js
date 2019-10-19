@@ -66,6 +66,7 @@ class Component {
         e.preventDefault();
         this.collectPhoneNbrs();
         this.collectMails();
+        this.inputData.name = this.inputData.name.trim();
         if(this.inputData.name === '') {this.inputData.name = 'Ananymous'}
         let contactData = {
           name: this.inputData.name,
@@ -185,7 +186,7 @@ class Component {
         e.preventDefault();
         this.collectPhoneNbrs2();
         this.collectMails2();
-
+        this.editInputData.name = this.editInputData.name.trim();
         if(this.editInputData.name === '') {this.editInputData.name = 'Ananymous'}
         let date = JSON.stringify(new Date())
         date = date.slice(0,11) + ' ' + date.slice(11,20);
@@ -200,12 +201,18 @@ class Component {
         delete removedHistory.history;
         removedHistory = {...removedHistory}
         removedHistory.date = date;
+        if(this.data.history.length === 0) {
+          let iContact = {...this.data}
+          delete iContact.history;
+          delete iContact.__v;
+          iContact.date = 'då kontakten skapades.';
+          this.data.history.push(iContact);
+        }
         contactData.history = [removedHistory, ...this.data.history];
         this.data.history.push(removedHistory)
     
         this.editInputData.phoneNumbers.forEach(obj => contactData.phoneNumbers.push(obj.phoneNumber));
         this.editInputData.mails.forEach(obj => contactData.mails.push(obj.mail));
-    
         const response = await fetch('/api/contacts/update', {
           method: 'PUT', 
           headers: {

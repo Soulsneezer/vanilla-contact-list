@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(255, 255, 255);
   width: 100%;
 }
 .outerDiv {
@@ -10,7 +10,7 @@ body {
   align-items: center;
   border-radius: 10px;
   border: solid 1px rgb(11, 18, 80);
-  background-image: url("../imgs/hey-hay.jpg");
+  background-image: url("../imgs/pastell.jpg");
   background-size: 100%;
 }
 .input {
@@ -54,8 +54,8 @@ body {
   width: 200px;
   height: 35px;
   font-size: 20px;
-  background-color: rgb(16, 38, 66);
-  color: rgb(221, 234, 252);
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 .create-contact {
   margin-left: 10px;
@@ -68,18 +68,18 @@ body {
   text-align: center;
 }
 .contact-card {
-  border: solid 2px rgb(167, 216, 248);
+  border: solid 2px rgb(122, 2, 152);
   width: 350px;
   height: 300px;
   margin: 10px;
   border-radius: 20px;
-  background-image: url("../imgs/blue-brick.jpg");
-  background-size: 100%;
+  background-image: url("../imgs/stain.jpg");
+  background-size: 140%;
   text-align: left;
   cursor: pointer;
   padding-bottom: 20px;
   position: relative;
-  color: rgb(221, 234, 252);
+  color: rgb(90, 1, 1);
 }
 .contact-card:hover {
   border: solid 1px rgb(0, 0, 0);
@@ -90,6 +90,7 @@ body {
   width: 50px;
   height: 50px;
   background-color: rgb(255, 166, 0);
+  border: solid 1px rgb(0, 0, 0);
   display: none;
   right: 10px;
   top: 10px;
