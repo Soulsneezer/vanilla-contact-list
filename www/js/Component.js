@@ -66,8 +66,8 @@ class Component {
         e.preventDefault();
         this.collectPhoneNbrs();
         this.collectMails();
-        this.inputData.name = this.inputData.name.trim();
-        if(this.inputData.name === '') {this.inputData.name = 'Ananymous'}
+        this.inputData.name = this.inputData.name.trim().slice(0,15);
+        if(this.inputData.name === '') {this.inputData.name = 'Anonymous'}
         let contactData = {
           name: this.inputData.name,
           phoneNumbers: [],
@@ -186,8 +186,8 @@ class Component {
         e.preventDefault();
         this.collectPhoneNbrs2();
         this.collectMails2();
-        this.editInputData.name = this.editInputData.name.trim();
-        if(this.editInputData.name === '') {this.editInputData.name = 'Ananymous'}
+        this.editInputData.name = this.editInputData.name.trim().slice(0,15);
+        if(this.editInputData.name === '') {this.editInputData.name = 'Anonymous'}
         let date = JSON.stringify(new Date())
         date = date.slice(0,11) + ' ' + date.slice(11,20);
         let contactData = {
